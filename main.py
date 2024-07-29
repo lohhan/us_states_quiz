@@ -14,14 +14,22 @@ states = data.state.tolist()
 correct_guesses = []
 while len(correct_guesses) < 50:
    answer_state = screen.textinput(title=f"{len(correct_guesses)}/50 States Correct", prompt="What's another state's name: ").title()
+
+   # if answer_state == "Exit":
+   #    missing_states = []
+   #    for item in states:
+   #       if item not in correct_guesses:
+   #          missing_states.append(item)
+   #    df = pd.DataFrame(missing_states)
+   #    df.to_csv("missing_states.csv")
+   #    break
+
    if answer_state == "Exit":
-      missing_states = []
-      for item in states:
-         if item not in correct_guesses:
-            missing_states.append(item)
+      missing_states = [item for item in states if item not in correct_guesses]
       df = pd.DataFrame(missing_states)
       df.to_csv("missing_states.csv")
       break
+
    if answer_state in states:
       if answer_state not in correct_guesses:
          correct_guesses.append(answer_state)
